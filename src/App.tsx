@@ -7,6 +7,8 @@ import PostDetail from './pages/PostDetail.tsx'
 import Gallery from './pages/Gallery.tsx'
 import Love from './pages/Love.tsx'
 import Writing from './pages/Writing.tsx'
+import Notes from './pages/Notes.tsx'
+import Messages from './pages/Messages.tsx'
 import NotFound from './pages/NotFound.tsx'
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path="/write" element={<Writing />} />
         <Route path="/posts" element={<PostList />} />
         <Route path="/posts/:slug" element={<PostDetail />} />
+        <Route path="/notes" element={<Notes />} />
+        <Route path="/messages" element={<Messages />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
