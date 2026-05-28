@@ -18,48 +18,37 @@ export default function PostList() {
   const years = Object.keys(grouped).sort((a, b) => b.localeCompare(a))
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-20">
-      <h1 className="text-4xl font-bold tracking-tight mb-12">Posts</h1>
+    <div className="max-w-3xl mx-auto px-6 py-16">
+      <h1 className="text-3xl font-bold text-forest-800 mb-2">📝 博客</h1>
+      <p className="text-forest-500 mb-10">所有文章</p>
 
       {posts.length === 0 ? (
-        <p className="text-gray-400">还没有文章。</p>
+        <p className="text-forest-400 text-sm">还没有文章。</p>
       ) : (
         <div className="space-y-10">
           {years.map((year) => (
             <section key={year}>
-              <h2 className="text-xs font-medium text-gray-300 uppercase tracking-wider mb-4">
-                {year}
-              </h2>
-              <ul className="space-y-6">
+              <h2 className="text-sm font-medium text-forest-300 uppercase tracking-wider mb-4">{year}</h2>
+              <div className="space-y-2">
                 {grouped[year].map((post) => (
-                  <li
+                  <Link
                     key={post.slug}
-                    className="pb-6 border-b border-gray-100 last:border-0"
+                    to={`/posts/${post.slug}`}
+                    className="glass-card p-5 block group hover:shadow-md transition-all"
                   >
-                    <Link to={`/posts/${post.slug}`} className="group block">
-                      <time className="text-xs text-gray-400">{post.date}</time>
-                      <h3 className="text-lg font-medium group-hover:text-gray-500 transition-colors mt-1">
-                        {post.title}
-                      </h3>
-                      {post.description && (
-                        <p className="text-sm text-gray-400 mt-1">{post.description}</p>
-                      )}
-                      {post.tags && post.tags.length > 0 && (
-                        <div className="flex gap-2 mt-3">
-                          {post.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded-full"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </Link>
-                  </li>
+                    <time className="text-xs text-forest-400">{post.date}</time>
+                    <h3 className="font-medium text-forest-800 group-hover:text-forest-600 transition-colors mt-1">{post.title}</h3>
+                    {post.description && <p className="text-sm text-forest-500 mt-1">{post.description}</p>}
+                    {post.tags && post.tags.length > 0 && (
+                      <div className="flex gap-2 mt-3">
+                        {post.tags.map((tag) => (
+                          <span key={tag} className="text-xs px-2 py-0.5 bg-forest-50 text-forest-500 rounded-full">{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                  </Link>
                 ))}
-              </ul>
+              </div>
             </section>
           ))}
         </div>

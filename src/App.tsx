@@ -4,6 +4,9 @@ import Home from './pages/Home.tsx'
 import About from './pages/About.tsx'
 import PostList from './pages/PostList.tsx'
 import PostDetail from './pages/PostDetail.tsx'
+import Gallery from './pages/Gallery.tsx'
+import Love from './pages/Love.tsx'
+import Writing from './pages/Writing.tsx'
 import NotFound from './pages/NotFound.tsx'
 
 function App() {
@@ -12,6 +15,9 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/love" element={<Love />} />
+        <Route path="/write" element={<Writing />} />
         <Route path="/posts" element={<PostList />} />
         <Route path="/posts/:slug" element={<PostDetail />} />
         <Route path="*" element={<NotFound />} />

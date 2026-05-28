@@ -1,4 +1,4 @@
-import matter from 'gray-matter'
+import fm from 'front-matter'
 
 export interface PostMeta {
   slug: string
@@ -27,18 +27,18 @@ const postCache = new Map<string, Post>()
 async function loadPost(path: string): Promise<Post> {
   const mod = await modules[path]()
   const raw = typeof mod === 'string' ? mod : (mod as RawModule).default
-  const { data, content } = matter(raw)
+  const { attributes, body } = fm<{ title: string; date: string; description?: string; tags?: string[] }>(raw)
   const slug = path.replace('/src/content/', '').replace('.md', '')
 
   return {
     meta: {
       slug,
-      title: data.title as string,
-      date: data.date as string,
-      description: data.description as string | undefined,
-      tags: data.tags as string[] | undefined,
+      title: attributes.title,
+      date: attributes.date,
+      description: attributes.description,
+      tags: attributes.tags,
     },
-    content,
+    content: body,
   }
 }
 

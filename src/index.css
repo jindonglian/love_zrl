@@ -1,70 +1,124 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --color-forest-50: #f3f9f5;
+  --color-forest-100: #e0f0e7;
+  --color-forest-200: #c2e2cf;
+  --color-forest-300: #94cbaa;
+  --color-forest-400: #64ae80;
+  --color-forest-500: #3d8b5f;
+  --color-forest-600: #2d6b47;
+  --color-forest-700: #24593b;
+  --color-forest-800: #1e4730;
+  --color-forest-900: #1a2e1f;
+
+  --color-sun-300: #f5d78e;
+  --color-sun-400: #e8a850;
+  --color-sun-500: #d4893a;
+
+  --font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  --font-display: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    @apply bg-white text-gray-900 leading-relaxed;
+    @apply bg-[#f7faf5] text-forest-900 leading-relaxed;
   }
 
-  ::selection {
-    @apply bg-gray-900 text-white;
-  }
+  ::selection { @apply bg-forest-200 text-forest-900; }
+}
+
+/* Frosted glass card */
+.glass-card {
+  @apply bg-white/70 backdrop-blur-md rounded-2xl border border-forest-100
+         shadow-[0_4px_24px_rgba(45,107,71,0.06)];
+}
+
+/* Gradient backgrounds */
+.gradient-hero {
+  background: linear-gradient(135deg, #f0f7f1 0%, #e8f4ec 30%, #fdf6e8 100%);
+}
+
+.gradient-card-green {
+  background: linear-gradient(135deg, #f0f9f3, #e8f5ec);
+}
+
+.gradient-card-warm {
+  background: linear-gradient(135deg, #fef9f0, #fdf3e0);
 }
 
 /* Prose styling for markdown content */
 .prose {
-  @apply max-w-none text-gray-700;
+  @apply max-w-none text-forest-800 leading-relaxed;
 }
 
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4 {
-  @apply text-gray-900 font-bold mt-8 mb-4;
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  @apply text-forest-900 font-bold mt-8 mb-4;
 }
 
 .prose h1 { @apply text-3xl; }
-.prose h2 { @apply text-2xl border-b border-gray-200 pb-2; }
-.prose h3 { @apply text-xl; }
+.prose h2 { @apply text-2xl border-b border-forest-100 pb-2; }
+.prose h3 { @apply text-xl text-forest-700; }
 
-.prose p { @apply my-4 leading-relaxed; }
+.prose p { @apply my-4; }
 .prose ul { @apply my-4 pl-6 list-disc; }
 .prose ol { @apply my-4 pl-6 list-decimal; }
-.prose li { @apply my-1; }
+.prose li { @apply my-1.5; }
 
 .prose a {
-  @apply text-gray-900 underline decoration-gray-300 hover:decoration-gray-900 transition-colors;
+  @apply text-forest-600 underline decoration-forest-200 hover:decoration-forest-500 transition-colors;
 }
 
 .prose blockquote {
-  @apply border-l-4 border-gray-300 pl-4 my-4 italic text-gray-600;
+  @apply border-l-4 border-sun-300 pl-4 my-4 italic text-forest-700 bg-amber-50/50 py-2 pr-4 rounded-r-lg;
 }
 
 .prose code {
-  @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono;
+  @apply bg-forest-50 text-forest-700 px-1.5 py-0.5 rounded text-sm font-mono;
 }
 
 .prose pre {
-  @apply bg-gray-900 text-gray-100 p-4 rounded-lg my-4 overflow-x-auto;
+  @apply bg-forest-900 text-forest-50 p-4 rounded-2xl my-4 overflow-x-auto;
 }
 
-.prose pre code {
-  @apply bg-transparent text-gray-100 p-0 text-sm;
-}
+.prose pre code { @apply bg-transparent text-forest-50 p-0 text-sm; }
 
-.prose img { @apply rounded-lg my-6 max-w-full; }
+.prose img { @apply rounded-2xl my-6 max-w-full shadow-md; }
 
 .prose table { @apply w-full my-4 border-collapse; }
-.prose th,
-.prose td { @apply border border-gray-300 px-4 py-2 text-left; }
-.prose th { @apply bg-gray-50 font-semibold; }
+.prose th, .prose td { @apply border border-forest-100 px-4 py-2 text-left; }
+.prose th { @apply bg-forest-50 font-semibold text-forest-700; }
 
-.prose hr { @apply my-8 border-gray-200; }
+.prose hr { @apply my-8 border-forest-100; }
+
+/* Photo grid animation */
+.photo-grid img {
+  @apply transition-all duration-300;
+}
+.photo-grid img:hover {
+  @apply scale-[1.02] shadow-lg;
+}
+
+/* Markdown editor styles */
+.editor-textarea {
+  @apply w-full min-h-[400px] p-6 rounded-2xl border border-forest-100
+         bg-white font-mono text-sm leading-relaxed resize-y
+         focus:ring-2 focus:ring-forest-300 focus:border-transparent outline-none;
+}
+
+/* Navigation underline animation */
+.nav-link {
+  @apply relative text-sm transition-colors;
+}
+.nav-link::after {
+  content: '';
+  @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-forest-500 rounded-full
+         transition-all duration-300;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  @apply w-full;
+}
