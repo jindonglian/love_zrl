@@ -10,16 +10,17 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.0",
     "react-markdown": "^10.1.0",
-    "remark-gfm": "^4.0.1",
-    "gray-matter": "^4.0.3"
+    "react-router-dom": "^7.6.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
     "@tailwindcss/vite": "^4.1.6",
+    "@types/node": "^25.9.1",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^4.4.1",
