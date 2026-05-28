@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { getAllPosts } from '../utils/loadPosts.ts'
+import { siteConfig } from '../siteConfig.ts'
 import type { PostMeta } from '../utils/loadPosts.ts'
 
 export default function Home() {
@@ -8,27 +9,29 @@ export default function Home() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-20">
       <section className="mb-20">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">
-          Hi, I'm <span className="text-gray-900">Your Name</span>
-        </h1>
+        <h1 className="text-4xl font-bold tracking-tight mb-4">{siteConfig.name}</h1>
         <p className="text-lg text-gray-500 leading-relaxed max-w-xl">
-          计算机科学与技术专业学生。热爱开源，喜欢探索新技术的边界。在这里记录我的学习与思考。
+          {siteConfig.bio}
         </p>
-        <div className="flex gap-4 mt-8">
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
-          >
-            GitHub
-          </a>
-          <a
-            href="mailto:your@email.com"
-            className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
-          >
-            Email
-          </a>
+        <div className="flex gap-6 mt-8">
+          {siteConfig.github && (
+            <a
+              href={siteConfig.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+            >
+              GitHub
+            </a>
+          )}
+          {siteConfig.email && (
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+            >
+              Email
+            </a>
+          )}
         </div>
       </section>
 
@@ -39,9 +42,9 @@ export default function Home() {
         {posts.length === 0 ? (
           <p className="text-gray-400">还没有文章。</p>
         ) : (
-          <ul className="space-y-4">
+          <ul className="space-y-6">
             {posts.map((post) => (
-              <li key={post.slug}>
+              <li key={post.slug} className="pb-6 border-b border-gray-100 last:border-0">
                 <Link to={`/posts/${post.slug}`} className="group block">
                   <time className="text-xs text-gray-400">{post.date}</time>
                   <h3 className="text-lg font-medium group-hover:text-gray-500 transition-colors mt-1">

@@ -7,13 +7,17 @@ const NAV_ITEMS = [
 ]
 
 export default function Header() {
-  const { pathname } = useLocation()
+  const location = useLocation()
+  // HashRouter 下 pathname 永远是 '/'，路由信息在 hash 中
+  const currentPath = location.pathname === '/'
+    ? location.hash.replace('#', '') || '/'
+    : location.pathname
 
   return (
-    <header className="border-b border-gray-100">
-      <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="border-b border-gray-100 sticky top-0 bg-white/80 backdrop-blur-sm z-50">
+      <div className="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link to="/" className="text-lg font-bold tracking-tight hover:opacity-70 transition-opacity">
-          My Baby
+          LJD
         </Link>
         <nav>
           <ul className="flex gap-6">
@@ -22,9 +26,9 @@ export default function Header() {
                 <Link
                   to={to}
                   className={`text-sm transition-colors ${
-                    pathname === to
+                    currentPath === to
                       ? 'text-gray-900 font-medium'
-                      : 'text-gray-500 hover:text-gray-900'
+                      : 'text-gray-400 hover:text-gray-900'
                   }`}
                 >
                   {label}

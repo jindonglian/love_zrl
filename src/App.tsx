@@ -4,6 +4,7 @@ import Home from './pages/Home.tsx'
 import About from './pages/About.tsx'
 import PostList from './pages/PostList.tsx'
 import PostDetail from './pages/PostDetail.tsx'
+import NotFound from './pages/NotFound.tsx'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/posts" element={<PostList />} />
         <Route path="/posts/:slug" element={<PostDetail />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )
