@@ -83,6 +83,36 @@ CREATE INDEX IF NOT EXISTS idx_notes_created ON notes(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_love_memories_date ON love_memories(date DESC);
 CREATE INDEX IF NOT EXISTS idx_photos_album ON photos(album_id);
 
+-- 情侣空间设置（key-value，用于存储天数基准等）
+CREATE TABLE IF NOT EXISTS love_settings (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE IF EXISTS love_settings ENABLE ROW LEVEL SECURITY;
+
 -- 存储桶（文件上传用）
 -- 在 Supabase Storage 页面手动创建 bucket: photos, love-photos
 -- 权限设 public read
+
+-- RLS 策略：允许匿名读写（个人网站无需登录）
+ALTER TABLE IF EXISTS posts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS albums ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS photos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS notes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS love_memories ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS love_photos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS writing_drafts ENABLE ROW LEVEL SECURITY;
+
+DO $$
+DECLARE
+    tbl TEXT;
+BEGIN
+    FOR tbl IN
+        SELECT tablename FROM pg_tables WHERE schemaname = 'public'
+    LOOP
+        EXECUTE format('CREATE POLICY "Public access" ON %I FOR ALL USING (true) WITH CHECK (true)', tbl);
+    END LOOP;
+END $$;

@@ -153,6 +153,18 @@ export async function deleteLovePhoto(id: number): Promise<boolean> {
   return true
 }
 
+export async function fetchLoveSetting(key: string): Promise<string | null> {
+  const { data, error } = await supabase.from('love_settings').select('value').eq('key', key).single()
+  if (error) return null
+  return (data as { value: string }).value
+}
+
+export async function upsertLoveSetting(key: string, value: string): Promise<boolean> {
+  const { error } = await supabase.from('love_settings').upsert({ key, value, updated_at: new Date().toISOString() })
+  if (error) { console.error('upsertLoveSetting:', error); return false }
+  return true
+}
+
 // ========== 留言板 ==========
 export async function fetchMessages(): Promise<Message[]> {
   const { data, error } = await supabase.from('messages').select('*').order('created_at', { ascending: false }).limit(100)
